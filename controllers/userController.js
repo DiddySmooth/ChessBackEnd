@@ -3,12 +3,17 @@ const jwt = require('jsonwebtoken')
 const userController = {}
 
 userController.create = async (req,res) => {
+    console.log(req.body)
     try {
         let user = await model.users.create({
+            name: req.body.name,
             username: req.body.username,
             email: req.body.email,
             password: req.body.password,
-            picture: req.body.picture
+            picture: "https://i.imgur.com/UTFIOfp.jpg",
+            
+
+            
         })
         const encryptedId = jwt.sign({userId: user.id}, process.env.JWT_SECRET)
         res.json({
