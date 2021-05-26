@@ -46,21 +46,23 @@ for (let i = 0; i < 100; i++) {
 io.on('connection', function (socket) {
   let color;
   let playerId = Math.floor((Math.random() * 100) + 1)
-  console.log(games)
   console.log(playerId + ' connected')
 
-  socket.on('joined', function (player1, roomId) {
+  socket.on('joined', function (player1) {
     // games[roomId] = {}
-    console.log(roomId)
-    if (games[roomId].players < 2) {
-        games[roomId].players++;
-        games[roomId].pid[games[roomId].players - 1] = playerId;
+    for(i = 0; i< 100; i++){
+        if (games[i].players < 2) {
+            games[i].players++;
+            games[i].pid[games[i].players - 1] = playerId;
+            console.log(`${playerId} joing room ${i}`)
+            return
+        }
+        else{
+            socket.emit('full', i)
+            return
+        }
     }
-    else{
-        socket.emit('full', roomId)
-        return;
-    }
-    
+    console.log(player1 + ' joined')
     console.log(games[roomId]);
     players = games[roomId].players
     
@@ -74,10 +76,10 @@ io.on('connection', function (socket) {
     
 });
 
-
-  socket.on('joined', player1 => {
-    console.log(player1 + ' joined')
-  })
+socket.on('message', function (msg) {
+    console.log(msg, "80")
+    socket.broadcast.emit('message', {msg})
+})
   
   socket.on('disconnect', function () {
     console.log(playerId + ' disconnected')

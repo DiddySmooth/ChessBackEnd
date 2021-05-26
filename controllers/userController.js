@@ -16,6 +16,7 @@ userController.create = async (req,res) => {
             
         })
         const encryptedId = jwt.sign({userId: user.id}, process.env.JWT_SECRET)
+        console.log(encryptedId, "-------------------------")
         res.json({
             message:"done",
             user: user,
@@ -30,6 +31,7 @@ userController.create = async (req,res) => {
 }
 
 userController.login = async (req,res) => {
+    console.log(req.body)
     try {
         let user = await model.users.findOne({
             where: {
@@ -55,6 +57,7 @@ userController.login = async (req,res) => {
 }
 
 userController.getInfo = async (req, res) => {
+    console.log(req.headers)
     try{
         
         const encryptedId = req.headers.authorization
@@ -78,6 +81,7 @@ userController.getInfo = async (req, res) => {
     }
 }
 userController.authCheck = async (req,res) => {
+    
     try {
         const encryptedId = req.headers.authorization
         const decryptedId = await jwt.verify(encryptedId, process.env.JWT_SECRET)
