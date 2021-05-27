@@ -1,19 +1,3 @@
-// const express = require('express')
-// const app = express()
-
-// const http = require('http')
-// const socket = require('socket.io')
-
-// require('dotenv').config()
-
-// const server = http.createServer(app, {
-//   cors:{
-//     origin: "*",
-//     credentials: true,
-//     methods: ["GET", "POST"]
-//   }
-// })
-// const io = socket(server)
 
 // app.use(require('morgan')('tiny'))
 // const routesReport = require('rowdy-logger').begin(app)
