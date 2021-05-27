@@ -11,6 +11,7 @@ userController.create = async (req,res) => {
             email: req.body.email,
             password: req.body.password,
             picture: "https://i.imgur.com/UTFIOfp.jpg",
+            elo: 500
             
 
             
@@ -21,6 +22,27 @@ userController.create = async (req,res) => {
             message:"done",
             user: user,
             userId: encryptedId,
+        })
+    } catch (error) {
+        console.log(error)
+        res.json({
+            error
+        })
+    }
+}
+userController.edit = async (req,res) => {
+    console.log(req.body)
+    try {
+        let user = await model.users.findOne({
+            where: {
+               username: req.body.username,
+            }
+        })
+        let update = await user.update({
+            elo: req.body.elo
+        })
+        res.json({
+            message:"done",
         })
     } catch (error) {
         console.log(error)
