@@ -38,8 +38,9 @@ userController.edit = async (req,res) => {
                username: req.body.username,
             }
         })
+        console.log(user.elo)
         let update = await user.update({
-            elo: req.body.elo
+            elo: user.elo + req.body.elo
         })
         res.json({
             message:"done",
@@ -102,6 +103,26 @@ userController.getInfo = async (req, res) => {
         })
     }
 }
+
+userController.getElo = async (req, res) => {
+    console.log(req.headers)
+    try{
+        
+        const users = await model.users.findAll()
+       
+        res.json({
+            user: users
+        })    
+    }
+    catch (error) {
+        console.log(error)
+        res.json({
+            error
+        })
+    }
+}
+
+
 userController.authCheck = async (req,res) => {
     
     try {

@@ -9,6 +9,7 @@ userRouter.post('/login', userController.login)
 userRouter.get('/getinfo', userController.getInfo)
 userRouter.get('/authcheck', userController.authCheck)
 userRouter.put('/elo', userController.edit)
+userRouter.get('/leaderboard', userController.getElo)
 
 
 module.exports = userRouter

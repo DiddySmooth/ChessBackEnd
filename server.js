@@ -37,11 +37,18 @@ io.on('connection', function (socket) {
         let playerId = msg
         for(i = 0; i< 100; i++){
             if (games[i].players < 2) {
+                if(games[i].players < 1){
+                    color = "white"
+                }
+                else{
+                    color = "black"
+                }
                 games[i].players++;
                 games[i].pid[games[i].players - 1] = playerId;
                 console.log(`${playerId} joining room ${i}`)
                 gameId = i;
-                socket.emit('room', {gameId})
+                
+                socket.emit('room', {gameId, color})
                 return
             }
         }
